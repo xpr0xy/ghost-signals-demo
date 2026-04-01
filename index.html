@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>GHOST SIGNALS - DEAD CITY TURBINE</title>
+<style>
+body { background: #000; color: #0a0; font-family: 'Courier New', Courier, monospace; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; margin: 0; overflow: hidden; cursor: crosshair; }
+#key { border: 1px solid #0a0; padding: 20px; text-shadow: 0 0 5px #0a0; font-size: 20px; letter-spacing: 5px; }
+h1 { font-size: 12px; margin-bottom: 20px; opacity: 0.7; }
+</style>
+</head>
+<body>
+<h1>// INITIATING GHOST SIGNAL //</h1>
+<div id="key">GHOST-TRBN-8829-XJ-01</div>
+<script>
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+let drone;
+document.body.addEventListener('click', () => {
+    if (audioCtx.state === 'suspended') audioCtx.resume();
+    drone = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    drone.type = 'sawtooth';
+    drone.frequency.setValueAtTime(55, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.1, audioCtx.currentTime);
+    drone.connect(gain);
+    gain.connect(audioCtx.destination);
+    drone.start();
+});
+</script>
+</body>
+</html>
